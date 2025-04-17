@@ -4,7 +4,7 @@ const socket = io("https://your-app-name.onrender.com");
 
 const peer = new Peer(userId, {
   host: "your-app-name.onrender.com",
-  port: 443,
+  port: 8000 || 10000,
   path: "/peerjs",
   secure: true,
 });
