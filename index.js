@@ -10,16 +10,13 @@ const io = require("socket.io")(server, {
 });
 const { ExpressPeerServer } = require("peer");
 const path = require("path");
-const PORT = process.env.PORT;
+const PORT = 8000;
 
-const socket = io("https://webmeeting.onrender.com/"); // use actual URL
-
-const peer = new Peer(userId, {
-  host: "https://webmeeting.onrender.com/",
-  port: 443,
-  path: "/peerjs",
-  secure: true,
+const peerServer = ExpressPeerServer(server, {
+  debug: true,
+  path: "/",
 });
+
 app.use("/peerjs", peerServer);
 app.use(express.static(path.join(__dirname, "assets")));
 app.set("view engine", "ejs");
@@ -44,3 +41,16 @@ io.on("connection", (socket) => {
 server.listen(PORT, () => {
   console.log(`✅ Server is live on Render, running on port ${PORT}`);
 });
+
+// ---------------------------------------------
+// 📄 Move the following to /assets/js/client.js
+// ---------------------------------------------
+
+// const socket = io('https://your-app-name.onrender.com');
+//
+// const peer = new Peer(userId, {
+//   host: 'your-app-name.onrender.com',
+//   port: 443,
+//   path: '/peerjs',
+//   secure: true
+// });
